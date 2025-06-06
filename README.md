@@ -5,6 +5,22 @@ Overall the code in this repo was developed by Soodeh Moallemian and Christophe 
 
 The code contains a series of scripts to generate the results, including figures, described in our pre-print paper (S. Moallemian et al., medRxiv, 2023) from the (now) open dataset of preprocessed quantitative MRI data (M. F. Callaghan & C. Phillips, OpenNEURO, 2025).
 
+A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM).
+
+## Data description
+
+The preprocessed data are available on [OpenNEURO](https://openneuro.org/datasets/ds005851). The part we are interested in here are available in the
+
+- `VBQ_TWsmooth` derivatives folder as it includes 8 image per participants, i.e. the 4 quantitative maps after tissue-weighted smoothing for the GM and WM separately;
+-  the main `derivatives` folder as it contains group level images, i.e. the GM and WM masks, to be used for tissue specific statistical analysis, and mean MTsat maps, to be used for results display for example.
+
+Overall the dataset includes spatially preprocessed quantitative MRIs from 138 healthy subjects:
+
+- age range 19-75 years (mean 46.6, s.d. 21)
+- data acquired on 2 different 3T whole body MR systems (69 participants per scanner)
+
+The age, sex, total intra-cranial volume, and scanner used, for each participants, were collected in a table to be used for the statistical modelling.
+
 ## References
 
 - S. Moallemian, C. Bastin, M. F. Callaghan, C. Phillips, *Multivariate Age-related Analysis of Variance in quantitative MRI maps: Widespread age-related differences revisited*, medRxiv, 2023. 
@@ -20,8 +36,8 @@ The code contains a series of scripts to generate the results, including figures
 ## Authors
 
 - [Soodeh Moallemian](https://www.linkedin.com/in/soodeh-moallemian/)
-  - GIGA CRC Human Imaging, University of Liège, Belgium.
-  - Center for Molecular and Behavioral Neuroscience, Rutgers University, NJ, USA
+  - GIGA CRC Human Imaging, University of Liège, Belgium;
+  - Center for Molecular and Behavioral Neuroscience, Rutgers University, NJ, USA.
 
 - [Christophe Phillips](https://www.uliege.be/cms/c_9054334/fr/repertoire?uid=u016440), GIGA CRC Human Imaging, University of Liège, Belgium.
 
