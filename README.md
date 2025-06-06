@@ -1,9 +1,9 @@
 # qMRI MSPM Age Fx
-Overall the code in this repo was developed by Soodeh Moallemian and Christophe Phillips, to re-analyze "quantitative MRI" data from Martina Callaghan.
+Overall the code in this repo was developed by Soodeh Moallemian and Christophe Phillips, to re-analyze "quantitative MRI" data from Martina F. Callaghan.
 
 ## Code description
 
-The code contains a series of scripts to generate the results, including figures, described in our pre-print paper (S. Moallemian et al., medRxiv, 2023) from the (now) open dataset of preprocesses quantitative MRI data (M. F. Callaghan & C. Phillips, OpenNEURO, 2025).
+The code contains a series of scripts to generate the results, including figures, described in our pre-print paper (S. Moallemian et al., medRxiv, 2023) from the (now) open dataset of preprocessed quantitative MRI data (M. F. Callaghan & C. Phillips, OpenNEURO, 2025).
 
 ## References
 
@@ -16,3 +16,14 @@ The code contains a series of scripts to generate the results, including figures
   Available on [OpenNEURO](https://openneuro.org/datasets/ds005851).
 - M. F. Callaghan, S. Moallemian & C. Phillips, *Lifespan quantitative MR images from 138 subjects, an open and spatially preprocessed dataset*. OHBM abstract and poster, 2025.
   Available on [ULiège ORBI](https://hdl.handle.net/2268/325811).
+
+## Authors
+
+- Soodeh Moallemian
+  - GIGA CRC Human Imaging, University of Liège, Belgium.
+  - Center for Molecular and Behavioral Neuroscience, Rutgers University, NJ, USA
+
+- [Christophe Phillips](https://www.uliege.be/cms/c_9054334/fr/repertoire?uid=u016440), GIGA CRC Human Imaging, University of Liège, Belgium.
+
+- [Martina F. Callaghan](https://sites.google.com/view/fil-physics/home), Wellcome Centre for Human Neuroimaging, Institute of Neurology, University College London, UK.
+
