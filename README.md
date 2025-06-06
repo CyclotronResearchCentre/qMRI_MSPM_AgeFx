@@ -1,6 +1,10 @@
 # qMRI MSPM Age Fx
 Overall the code in this repo was developed by Soodeh Moallemian and Christophe Phillips, to re-analyze "quantitative MRI" data from Martina Callaghan.
 
+## Code description
+
+The code contains a series of scripts to generate the results, including figures, described in our pre-print paper (S. Moallemian et al., medRxiv, 2023) from the (now) open dataset of preprocesses quantitative MRI data (M. F. Callaghan & C. Phillips, OpenNEURO, 2025).
+
 ## References
 
 - S. Moallemian, C. Bastin, M. F. Callaghan, C. Phillips, *Multivariate Age-related Analysis of Variance in quantitative MRI maps: Widespread age-related differences revisited*, medRxiv, 2023. 
