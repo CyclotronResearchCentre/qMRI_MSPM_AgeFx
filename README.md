@@ -19,7 +19,7 @@ The code contains a series of scripts to generate the results, including figures
 
 ## Authors
 
-- Soodeh Moallemian
+- [Soodeh Moallemian](https://www.linkedin.com/in/soodeh-moallemian/)
   - GIGA CRC Human Imaging, University of Liège, Belgium.
   - Center for Molecular and Behavioral Neuroscience, Rutgers University, NJ, USA
 
