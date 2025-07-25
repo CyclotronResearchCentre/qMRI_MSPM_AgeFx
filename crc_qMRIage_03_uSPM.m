@@ -80,7 +80,7 @@ for i_TWS = 1:N_TWS
         % - the data
         matlabbatch{1}.spm.stats.factorial_design.des.t1.scans = ...
             fn_img_ij;
-        % - the covariates
+        % - the covariates (this could be done outside the loops)
         for i_c = 1:size(SPM_cov,2)
             matlabbatch{1}.spm.stats.factorial_design.cov(i_c).c = ...
                 SPM_cov{2,i_c}(1:N_img_j);
@@ -100,4 +100,6 @@ for i_TWS = 1:N_TWS
     end
 end
 
+%% Spit out nothign
+out = '';
 end
