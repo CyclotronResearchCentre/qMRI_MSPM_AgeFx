@@ -30,6 +30,11 @@ s01_out = crc_qMRIage_01_prepdata;
 %% 02. Deal with z-scoring of the data
 s02_out = crc_qMRIage_02_zscoring;
 
+%% 03. Perform univariate SPM analysis
+s03_out = crc_qMRIage_03_uSPM;
+
+
+
 % % Get list of subjects
 % [subj_dirs] = spm_select('FPList',pth.data,'dir','^sub-.*$');
 % Nsubs = size(subj_dirs,1);
