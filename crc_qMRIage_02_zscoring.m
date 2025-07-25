@@ -27,11 +27,11 @@ N_maps = numel(filt_maps);
 for i_TWS = 1:N_TWS
     % Pick tissue mask
     fn_mask_i = spm_select('FPListRec', pth.deriv, ...
-        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)$', filt_TWS{i_TWS}) );
+        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', filt_TWS{i_TWS}) );
     for j_maps = 1: N_maps
         % Pick list of maps from all subjects
         fn_img_ij = cellstr( spm_select('FPListRec', pth.TWsmo, ...
-            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)$', filt_TWS{i_TWS}, ...
+            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)?$', filt_TWS{i_TWS}, ...
             filt_maps{j_maps}) ));
         % Do the z-scoring
         within_voxel_z_scoring(fn_img_ij, fn_mask_i)
@@ -66,6 +66,7 @@ end
 
 %% SUBFUNCTION
 
+% Code form SM original work
 function within_voxel_z_scoring(fn_images, fn_mask)
 % Perform within-voxel z-scoring throughout an entire list of images
 % FORMAT within_voxel_z_scoring(fn_images, fn_mask)
