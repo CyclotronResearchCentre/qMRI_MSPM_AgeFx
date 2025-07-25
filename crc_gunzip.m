@@ -36,9 +36,9 @@ function fn_out = crc_gunzip(fn_in, flag)
 
 % Defaults & input
 flag_ref = struct(...
-    'filt','^.*\.gz$',... % all .nii files
+    'filt','^.*\.gz$',... % all .gz files
     'rec', true, ...      % act recursively
-    'delOrig', false);    % delete original file after gunzipping 
+    'delOrig', false);    % do not delete original file after gunzipping 
 pth_ref = '.'; % use local location by default
 
 if nargin<2, flag = flag_ref; end

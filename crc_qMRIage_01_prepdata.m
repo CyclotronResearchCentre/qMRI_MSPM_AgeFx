@@ -11,10 +11,14 @@ function out = crc_qMRIage_01_prepdata
 pth = crc_qMRIage_defaults;
 
 %% Deleting unnecessary folder with non-smoothed data
-if exist(pth.dartel,'dir'), delete(pth.dartel); end
+if exist(pth.dartel,'dir'), rmdir(pth.dartel,'s'); end
 
 %% Unzip all images in the TW-smoothed derivatives folder 
 % + 'derivatives' top folder with atlases.
+flag = struct(...
+    'filt','^.*\.nii\.gz$',... % all .nii.gz files
+    'rec', true, ...      % act recursively
+    'delOrig', true);    % do not delete original file after gunzipping 
 fn_out = crc_gunzip(pth.deriv, flag);
 
 %% Spit out list of files
