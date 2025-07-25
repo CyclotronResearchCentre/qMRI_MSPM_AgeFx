@@ -13,7 +13,7 @@ function pth = crc_qMRIage_defaults
 %   .deriv  : folder with the derivatives
 %   .dartel : folder with the SPM8-Dartel processed data (not smoothed)
 %   .TWsmo  : folder with the tissue-weighted smoothed data (to be used!)
-% 
+%   .zscore : folder with the z-scored maps
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -32,5 +32,7 @@ pth = struct( ...
 pth.deriv  = fullfile(pth.data,'derivatives');
 pth.dartel = fullfile(pth.deriv,'SPM8_dartel');
 pth.TWsmo  = fullfile(pth.deriv,'VBQ_TWsmooth');
+pth.zscore = fullfile(pth.deriv,'Zsc_maps');
+
 
 end
