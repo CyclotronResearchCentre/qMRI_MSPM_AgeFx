@@ -1,9 +1,9 @@
-function pth = crc_qMRIage_defaults
+function [pth,fn] = crc_qMRIage_defaults
 % Simple function to define some default values for the processing of the
 % "MPM qMRI aging" dataset. One should at least update the basic pathes for
 % his own system and installation.
 % 
-% FORMAT pth = crc_qMRIage_defaults
+% FORMAT [pth,fn] = crc_qMRIage_defaults
 % 
 % OUTPUT
 %   pth     : structure with a list of basic and secondary pathes
@@ -14,6 +14,10 @@ function pth = crc_qMRIage_defaults
 %   .dartel : folder with the SPM8-Dartel processed data (not smoothed)
 %   .TWsmo  : folder with the tissue-weighted smoothed data (to be used!)
 %   .zscore : folder with the z-scored maps
+%   .code   : folder with some codes/matlabbatch created during the
+%             processing
+%   fn      : structure with a list of filenames
+%   .MBuSPM : matlabbatch with the empty 1S-ttest GLM definition
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -33,6 +37,10 @@ pth.deriv  = fullfile(pth.data,'derivatives');
 pth.dartel = fullfile(pth.deriv,'SPM8_dartel');
 pth.TWsmo  = fullfile(pth.deriv,'VBQ_TWsmooth');
 pth.zscore = fullfile(pth.deriv,'Zsc_maps');
+pth.code   = fullfile(pth.data,'code');
 
+%% Filenames
+fn = struct( ...
+    'MBuSPM', 'MBatch_1Sttest_empty.m');
 
 end
