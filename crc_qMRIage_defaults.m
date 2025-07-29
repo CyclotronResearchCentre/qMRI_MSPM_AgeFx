@@ -18,6 +18,8 @@ function [pth,fn] = crc_qMRIage_defaults
 %             processing
 %   fn      : structure with a list of filenames
 %   .MBuSPM : matlabbatch with the empty 1S-ttest GLM definition
+%   .filt_TC   : tissue classes considered, {'GM','WM'}
+%   .filt_maps : maps considered , {'MTsat','PDmap','R1map','R2starmap'}
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -41,6 +43,8 @@ pth.code   = fullfile(pth.data,'code');
 
 %% Filenames
 fn = struct( ...
-    'MBuSPM', 'MBatch_1Sttest_empty.m');
+    'MBuSPM', 'MBatch_1Sttest_empty.m', ...
+    'filt_TC', {{'GM','WM'}}, ...
+    'filt_maps', {{'MTsat','PDmap','R1map','R2starmap'}});
 
 end

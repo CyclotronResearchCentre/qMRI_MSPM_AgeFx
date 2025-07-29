@@ -14,25 +14,23 @@ function out = crc_qMRIage_02_zscoring
 % - S. Moallemian, Rutgers University, NJ, USA
 
 %% Get defaults
-pth = crc_qMRIage_defaults;
+[pth,fn] = crc_qMRIage_defaults;
 
 %% Deal with the data per tissue (2) and per  map (4)
-% Define filters for TWsmooth and maps
-filt_TWS = {'GM','WM'};
-N_TWS  = numel(filt_TWS);
-filt_maps = {'MTsat','PDmap','R1map','R2starmap'};
-N_maps = numel(filt_maps);
+% Define filters for TC-weighted smoothing and maps
+N_TC  = numel(fn.filt_TC);
+N_maps = numel(fn.filt_maps);
 
-% Loop of the TWS and maps
-for i_TWS = 1:N_TWS
+% Loop of the TC and maps
+for i_TWS = 1:N_TC
     % Pick tissue mask
     fn_mask_i = spm_select('FPListRec', pth.deriv, ...
-        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', filt_TWS{i_TWS}) );
+        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}) );
     for j_maps = 1: N_maps
         % Pick list of maps from all subjects
         fn_img_ij = cellstr( spm_select('FPListRec', pth.TWsmo, ...
-            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)?$', filt_TWS{i_TWS}, ...
-            filt_maps{j_maps}) ));
+            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}, ...
+            fn.filt_maps{j_maps}) ));
         % Do the z-scoring
         within_voxel_z_scoring(fn_img_ij, fn_mask_i)
         

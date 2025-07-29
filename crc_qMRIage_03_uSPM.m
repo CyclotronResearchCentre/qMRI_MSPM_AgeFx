@@ -52,24 +52,23 @@ end
 
 %% Deal with the 2x4 SPM's, one by one
 % Define filters for TWsmooth and maps
-filt_TWS = {'GM','WM'};
-N_TWS  = numel(filt_TWS);
-filt_maps = {'MTsat','PDmap','R1map','R2starmap'};
-N_maps = numel(filt_maps);
+% Define filters for TC-weighted smoothing and maps
+N_TC  = numel(fn.filt_TC);
+N_maps = numel(fn.filt_maps);
 
-for i_TWS = 1:N_TWS
+for i_TWS = 1:N_TC
     % Pick tissue mask
     fn_mask_i = spm_select('FPListRec', pth.deriv, ...
-        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', filt_TWS{i_TWS}) );
+        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}) );
     for j_maps = 1: N_maps
         % Pick list of maps from all subjects
         fn_img_ij = cellstr( spm_select('FPListRec', pth.TWsmo, ...
-            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)?$', filt_TWS{i_TWS}, ...
-            filt_maps{j_maps}) ));
+            sprintf('^sub.*%ssmo_%s\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}, ...
+            fn.filt_maps{j_maps}) ));
         N_img_j = size(fn_img_ij,1);
         % Define the SPM folder & create it
         fn_uSPM_ij = sprintf('uSPM_%s_%s', ...
-            filt_TWS{i_TWS}, filt_maps{j_maps});
+            fn.filt_TC{i_TWS}, fn.filt_maps{j_maps});
         pth_uSPM_ij = fullfile(pth.deriv, fn_uSPM_ij);
         if ~exist(pth_uSPM_ij,'dir'), mkdir(pth_uSPM_ij); end;
         
