@@ -3,7 +3,7 @@ function out = crc_qMRIage_04_mSPM
 % This is performed per tissue-weighted smoothed images (2), relying on the
 % previously built univariate SPMs (4).
 %
-% The MSPM analysis is placed in a different derivatives folders.
+% The 2 MSPM analysis are placed in different derivatives folders.
 % 
 % WARNING
 %  It is quite insane that the analysis module does launch a GUI window

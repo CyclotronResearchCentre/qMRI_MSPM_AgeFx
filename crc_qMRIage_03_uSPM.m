@@ -1,5 +1,5 @@
 function out = crc_qMRIage_03_uSPM
-% Function to perform the univariate tests on the z-scored maps.
+% Function to create the univariate GLMs on the z-scored maps.
 % This is performed per tissue-weighted smoothed images (2) and maps (4),
 %
 % The SPM analysis are placed in 8 (2x4) different derivatives folders.

@@ -2,7 +2,7 @@ function out = crc_qMRIage_02_zscoring
 % Function z-scoring all the data, this performed
 % - within voxel across subjects,
 % - per tissue-weighted smoothed images (2) and maps (4),
-%  i.e. one voxe from a single map smoothed for one tissue, across all the
+%  i.e. one voxel from a single map smoothed for one tissue, across all the
 %  subjects.
 %
 % The z-transformed maps are placed in a separate 'derivatives' sub-folder.
