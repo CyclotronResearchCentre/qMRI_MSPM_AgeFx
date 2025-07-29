@@ -51,10 +51,10 @@ for ii=1:Nfieldn-1
 end
 
 %% Deal with the 2x4 SPM's, one by one
-% Define filters for TWsmooth and maps
 % Define filters for TC-weighted smoothing and maps
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
+pth_uSPM = cell(N_TC,N_maps);
 
 for i_TWS = 1:N_TC
     % Pick tissue mask
@@ -71,6 +71,7 @@ for i_TWS = 1:N_TC
             fn.filt_TC{i_TWS}, fn.filt_maps{j_maps});
         pth_uSPM_ij = fullfile(pth.deriv, fn_uSPM_ij);
         if ~exist(pth_uSPM_ij,'dir'), mkdir(pth_uSPM_ij); end;
+        pth_uSPM{i_TWS,j_maps} = pth_uSPM_ij;
         
         % Fill up the matlabbatch
         matlabbatch = MBatch_orig;
@@ -99,6 +100,6 @@ for i_TWS = 1:N_TC
     end
 end
 
-%% Spit out nothign
-out = '';
+%% Spit out list of uSPM folders
+out = pth_uSPM;
 end
