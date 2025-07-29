@@ -25,7 +25,7 @@ spm_jobman('initcfg')
 
 %% 01. Prepare and clean up the original data
 % if that's not already done.
-s01_out = crc_qMRIage_01_prepdata;
+s01_out = crc_qMRIage_01_prepdata; %#ok<*NASGU>
 
 %% 02. Deal with z-scoring of the data
 s02_out = crc_qMRIage_02_zscoring;

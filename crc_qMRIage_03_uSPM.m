@@ -2,7 +2,7 @@ function out = crc_qMRIage_03_uSPM
 % Function to perform the univariate tests on the z-scored maps.
 % This is performed per tissue-weighted smoothed images (2) and maps (4),
 %
-% The SPM analysis are place in 8 (2x4) different derivatives folders.
+% The SPM analysis are placed in 8 (2x4) different derivatives folders.
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -18,7 +18,7 @@ if ~exist(pth.code,'dir'), mkdir(pth.code); end;
 % Get the empty matlabbatch
 fn_MBatch_blank = fullfile(spm_file(mfilename('fullpath'),'fpath'), ...
     fn.MBuSPM);
-run(fn_MBatch_blank); MBatch_orig = matlabbatch;
+run(fn_MBatch_blank); MBatch_orig = matlabbatch; %#ok<*NODEF>
 
 % Get the covariates from the participants.tsv file
 % and turn the sex and scanner one into binary value (1 for 'F' or 'trio')
