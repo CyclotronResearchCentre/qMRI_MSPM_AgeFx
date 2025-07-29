@@ -33,6 +33,8 @@ s02_out = crc_qMRIage_02_zscoring;
 %% 03. Perform univariate SPM analysis
 s03_out = crc_qMRIage_03_uSPM;
 
+%% 04. Perform multivarite SPM analysis
+s04_out = crc_qMRIage_04_mSPM;
 
 
 % % Get list of subjects
