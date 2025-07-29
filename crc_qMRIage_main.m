@@ -17,9 +17,20 @@ function aa = crc_qMRIage_main
 
 %% 00. Setup pathes to the code
 % Some checks & path handling
+[pth,fn] = crc_qMRIage_defaults;
+
 % adding SPM path, if not found
 if isempty(which('spm')), addpath(pth.spm); end
-% and initiliazing SPM
+
+% adding MSPM to SPM, as a separate tool, if not done yet
+pth_SPMtool_MSPM = fullfile(spm('dir'),'toolbox','MSPM_toolbox');
+if ~exist(pth_SPMtool_MSPM,'dir'),
+    % copy MSPM into SPM's tools folder
+    mkdir(pth_SPMtool_MSPM)
+    copyfile(pth.mspm,pth_SPMtool_MSPM)
+end
+
+% then initiliazing SPM
 spm('defaults','fmri'),
 spm_jobman('initcfg')
 
