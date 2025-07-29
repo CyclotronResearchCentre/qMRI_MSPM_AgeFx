@@ -1,11 +1,22 @@
 # qMRI MSPM Age Fx
 Overall the code in this repo was developed by Soodeh Moallemian and Christophe Phillips, to re-analyze "quantitative MRI" data from Martina F. Callaghan.
 
+The code contains a series of scripts to generate the results, including figures, described in our pre-print paper ([S. Moallemian et al., medRxiv, 2023](https://doi.org/10.1101/2023.10.19.23297253)) from the (now) open dataset of preprocessed quantitative MRI data ([M. F. Callaghan & C. Phillips, OpenNEURO, 2025](https://openneuro.org/datasets/ds005851)).
+
 ## Code description
 
-The code contains a series of scripts to generate the results, including figures, described in our pre-print paper (S. Moallemian et al., medRxiv, 2023) from the (now) open dataset of preprocessed quantitative MRI data (M. F. Callaghan & C. Phillips, OpenNEURO, 2025).
+ A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), both available from GitHub. For SPM, one can simply use the latest release, i.e. SPM25. Note though, that as much as SPM is well supported, MSPM is NOT. There remain a few [open issues](https://github.com/LREN-CHUV/MSPM/issues), which should not be too difficult to fix... except for the "Contrasts" issue!
 
-A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM).
+### Limitation
+
+The main problem with MSPM code, as it stands now, is that **one cannot fully automatize the MSPM analysis**! Indeed, when trying to run the `Analysis` module, only the `MSPM.mat` file is selected and an external GUI window opens to defined the contrasts of interests: one for the experimental design (e.g. group comparison or regression) and one for the modalities (e.g. effect across all modalities). This poorly fitted GUI, then opens SPM's standard contrast definition GUI window.
+
+The 2 constrasts :
+
+- `c` for the experimental desing should be set to `[0 1 0 0 0]`, to test for the age regressor;
+- `L` for the modalities should be set to `eye(4)`, to test for all modalities considered together.
+
+We will try to solve that but it is not straightforward and will take time, which we do not have...
 
 ## Data description
 

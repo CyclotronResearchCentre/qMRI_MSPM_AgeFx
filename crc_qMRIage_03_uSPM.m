@@ -51,7 +51,7 @@ for ii=1:Nfieldn-1
 end
 
 %% Deal with the 2x4 SPM's, one by one
-% Define filters for TC-weighted smoothing and maps
+% Check filters for TC-weighted smoothing and maps
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
 pth_uSPM = cell(N_TC,N_maps);
