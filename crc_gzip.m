@@ -22,6 +22,15 @@ function fn_out = crc_gzip(fn_in, flag)
 % 
 % fn_out    : file(s) that were gzipped
 % 
+% EXAMPLE
+% 
+% flag = struct(...
+%     'filt','^.*\.nii$',... % all .nii files
+%     'rec', true, ...       % act recursively
+%     'delOrig', false);     % do not delete original file after gzipping 
+% pth_in = 'D:\myDATA\';
+% fn_out = crc_gzip(pth_in, flag)
+% 
 % NOTE:
 % When multiple files are passed, Gzip will put all the compressed files
 % into the folder of the *1st* filer.

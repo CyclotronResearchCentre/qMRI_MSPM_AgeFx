@@ -22,6 +22,16 @@ function fn_out = crc_gunzip(fn_in, flag)
 % 
 % fn_out    : file(s) that were gunzipped
 % 
+% 
+% EXAMPLE
+% 
+% flag = struct(...
+%     'filt','^.*\.gz$',... % all .gz files
+%     'rec', true, ...      % act recursively
+%     'delOrig', false);    % do not delete original zipped file(s
+% pth_in = 'D:\myDATA\';
+% fn_out = crc_gunzip(fn_in, flag)
+% 
 % NOTE:
 % When multiple files are passed, gunzip will put all the uncompressed 
 % files into the folder of the *1st* filer. Therefore, it is safer to loop 
