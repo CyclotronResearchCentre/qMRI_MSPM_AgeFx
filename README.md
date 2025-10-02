@@ -3,20 +3,7 @@ Overall the code in this repo was developed by Soodeh Moallemian and Christophe 
 
 The code contains a series of scripts to generate the results, including figures, described in our pre-print paper ([S. Moallemian et al., medRxiv, 2023](https://doi.org/10.1101/2023.10.19.23297253)) from the (now) open dataset of preprocessed quantitative MRI data ([M. F. Callaghan & C. Phillips, OpenNEURO, 2025](https://openneuro.org/datasets/ds005851)).
 
-## Code description
-
- A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), both available from GitHub. For SPM, one can simply use the latest release, i.e. SPM25. Note though, that as much as SPM is well supported, MSPM is NOT. There remain a few [open issues](https://github.com/LREN-CHUV/MSPM/issues), which should not be too difficult to fix... except for the "Contrasts" issue!
-
-### Limitation
-
-The main problem with MSPM code, as it stands now, is that **one cannot fully automatize the MSPM analysis**! Indeed, when trying to run the `Analysis` module, only the `MSPM.mat` file is selected and an external GUI window opens to defined the contrasts of interests: one for the experimental design (e.g. group comparison or regression) and one for the modalities (e.g. effect across all modalities). This poorly fitted GUI, then opens SPM's standard contrast definition GUI window.
-
-The 2 constrasts :
-
-- `c` for the experimental desing should be set to `[0 1 0 0 0]`, to test for the age regressor;
-- `L` for the modalities should be set to `eye(4)`, to test for all modalities considered together.
-
-We will try to solve that but it is not straightforward and will take time, which we do not have...
+---
 
 ## Data description
 
@@ -32,6 +19,14 @@ Overall the dataset includes spatially preprocessed quantitative MRIs from 138 h
 
 The age, sex, total intra-cranial volume, and scanner used, for each participants, were collected in a table to be used for the statistical modelling.
 
+---
+
+## Code description
+
+ A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), both available from GitHub. For SPM, one can simply use the latest release, i.e. SPM25. Note though, that as much as SPM is well supported, MSPM is not. The description of the code is available in this [HowTo.md](HowTo.md) file. 
+
+---
+
 ## References
 
 - S. Moallemian, C. Bastin, M. F. Callaghan, C. Phillips, *Multivariate Age-related Analysis of Variance in quantitative MRI maps: Widespread age-related differences revisited*, medRxiv, 2023. 
@@ -43,6 +38,8 @@ The age, sex, total intra-cranial volume, and scanner used, for each participant
   Available on [OpenNEURO](https://openneuro.org/datasets/ds005851).
 - M. F. Callaghan, S. Moallemian & C. Phillips, *Lifespan quantitative MR images from 138 subjects, an open and spatially preprocessed dataset*. OHBM abstract and poster, 2025.
   Available on [ULiège ORBI](https://hdl.handle.net/2268/325811).
+
+---
 
 ## Authors
 
