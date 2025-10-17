@@ -55,6 +55,7 @@ end
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
 pth_uSPM = cell(N_TC,N_maps);
+fn_MBuSPM = cell(N_TC,N_maps);
 
 for i_TWS = 1:N_TC
     % Pick tissue mask
@@ -92,7 +93,8 @@ for i_TWS = 1:N_TC
             {fn_mask_i};
         
         % Saving it, in code folder, just in case
-        save(fullfile(pth.code,['MBatch_',fn_uSPM_ij]),'matlabbatch');
+        fn_uSPM = fullfile(pth.code,['MBatch_',fn_uSPM_ij]);
+        fn_MBuSPM{i_TWS,j_maps} = crc_save_matlabbatch(matlabbatch,fn_uSPM);
         
         % Executing the matlabbatch
         spm_jobman('run', matlabbatch);
@@ -101,5 +103,5 @@ for i_TWS = 1:N_TC
 end
 
 %% Spit out list of uSPM folders
-out = pth_uSPM;
+out = {pth_uSPM, fn_MBuSPM};
 end
