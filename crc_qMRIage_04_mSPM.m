@@ -31,6 +31,7 @@ function out = crc_qMRIage_04_mSPM
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
 pth_mSPM = cell(N_TC,1);
+fn_MBmSPM = cell(N_TC,1);
 
 for i_TC = 1:N_TC
     % Find the uSPM folders nad corresponding SPM.mat files
@@ -54,9 +55,9 @@ for i_TC = 1:N_TC
     matlabbatch{2}.spm.tools.results.analyse.spmmat = ...
         {fullfile(pth_mSPM{i_TC},'MSPM.mat')};
     % - save matlabbatch
-    save(fullfile(pth.code, ...
-        sprintf('MBatch_mSPM_ModelEstimAnalysis_%s',fn.filt_TC{i_TC})), ...
-            'matlabbatch');
+    fn_mSPM = fullfile(pth.code, ...
+        sprintf('MBatch_mSPM_ModelEstimAnalysis_%s',fn.filt_TC{i_TC}));
+    fn_MBmSPM{i_TC} = crc_save_matlabbatch(matlabbatch,fn_mSPM);
     % - run matlabbatch
     spm_jobman('run', matlabbatch);
 end
