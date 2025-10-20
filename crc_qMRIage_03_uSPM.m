@@ -3,6 +3,9 @@ function out = crc_qMRIage_03_uSPM
 % This is performed per tissue-weighted smoothed images (2) and maps (4),
 %
 % The SPM analysis are placed in 8 (2x4) different derivatives folders.
+% 
+% NOTE
+% Since SPM spits out 
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -12,6 +15,8 @@ function out = crc_qMRIage_03_uSPM
 
 %% Get defaults
 [pth,fn] = crc_qMRIage_defaults;
+fl_printPDF = false; % do not print the design matrix
+% set to 'true' to write out a PDF file of the design matrix 
 
 %% Prepare the basics for the SPM's
 if ~exist(pth.code,'dir'), mkdir(pth.code); end;
@@ -19,6 +24,9 @@ if ~exist(pth.code,'dir'), mkdir(pth.code); end;
 fn_MBatch_blank = fullfile(spm_file(mfilename('fullpath'),'fpath'), ...
     fn.MBuSPM);
 run(fn_MBatch_blank); MBatch_orig = matlabbatch; %#ok<*NODEF>
+
+% remove the review module, if not required
+if ~fl_printPDF, MBatch_orig(3) = []; end
 
 % Get the covariates from the participants.tsv file
 % and turn the sex and scanner one into binary value (1 for 'F' or 'trio')
