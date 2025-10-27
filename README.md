@@ -59,4 +59,4 @@ The description of the code is available in this [HowTo.md](HowTo.md) file.
 
 The authors would like to thank E. Anderson, M. Cappelletti, R. Chowdhury, J. Diedirchsen, T.H.B. Fitzgerald, and P. Smittenaar, who took part in data acquisition as part of multiple cognitive neuroimaging studies performed at the WCHN. 
 
-This work was supported by the Walloon Region in the framework of the PIT program PROTHER-WAL under grant agreement No. 7289 and ULiege Research Concerted Action (SLEEPDEM, grant 17/2109). Christophe Phillips are Research Directors at the [F.R.S.-FNRS](https://www.frs-fnrs.be/en/).
+This work was supported by the Walloon Region in the framework of the PIT program PROTHER-WAL under grant agreement No. 7289 and ULiege Research Concerted Action (SLEEPDEM, grant 17/2109). Christophe Phillips are Research Directors at the [F.R.S.-FNRS](https://www.frs-fnrs.be/en/). This research was also funded in part by the Wellcome Trust [203147/Z/16/Z]. For the purpose of Open Access, the author has applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
