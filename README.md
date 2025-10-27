@@ -1,7 +1,7 @@
 # qMRI MSPM Age Fx
 Overall the code in this repo was developed by Soodeh Moallemian and Christophe Phillips, to re-analyze "quantitative MRI" data from Martina F. Callaghan.
 
-The code contains a series of scripts to generate the results, including figures, described in our pre-print paper ([S. Moallemian et al., medRxiv, 2023](https://doi.org/10.1101/2023.10.19.23297253)) from the (now) open dataset of preprocessed quantitative MRI data ([M. F. Callaghan & C. Phillips, OpenNEURO, 2025](https://openneuro.org/datasets/ds005851)).
+The code contains a series of scripts to generate the main results (not yet the figures though), described in our pre-print paper ([S. Moallemian et al., medRxiv, 2023](https://doi.org/10.1101/2023.10.19.23297253) and updated in 2025) from the now open dataset of preprocessed quantitative MRI data ([M. F. Callaghan & C. Phillips, OpenNEURO, 2025](https://openneuro.org/datasets/ds005851)).
 
 ---
 
@@ -10,7 +10,7 @@ The code contains a series of scripts to generate the results, including figures
 The preprocessed data are available on [OpenNEURO](https://openneuro.org/datasets/ds005851). The part we are interested in here are available in the
 
 - `VBQ_TWsmooth` derivatives folder as it includes 8 image per participants, i.e. the 4 quantitative maps after tissue-weighted smoothing for the GM and WM separately;
--  the main `derivatives` folder as it contains group level images, i.e. the GM and WM masks, to be used for tissue specific statistical analysis, and mean MTsat maps, to be used for results display for example.
+-  the main `derivatives` folder as it contains group level images, i.e. the GM and WM masks, to be used for tissue specific statistical analysis, and mean `MTsat` maps, to be used for results display for example.
 
 Overall the dataset includes spatially preprocessed quantitative MRIs from 138 healthy subjects:
 
@@ -23,7 +23,9 @@ The age, sex, total intra-cranial volume, and scanner used, for each participant
 
 ## Code description
 
- A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), both available from GitHub. For SPM, one can simply use the latest release, i.e. SPM25. Note though, that as much as SPM is well supported, MSPM is not. The description of the code is available in this [HowTo.md](HowTo.md) file. 
+ A few tools are required to process the data mainly [SPM](https://github.com/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), both available from GitHub. For SPM, one can simply use the latest release, i.e. SPM25. Note though, that as much as SPM is well supported, MSPM is not (so far/yet). Thus everything MSPM related cannot be scripted... 
+
+The description of the code is available in this [HowTo.md](HowTo.md) file. 
 
 ---
 
@@ -41,7 +43,7 @@ The age, sex, total intra-cranial volume, and scanner used, for each participant
 
 ---
 
-## Authors
+## Authors 
 
 - [Soodeh Moallemian](https://www.linkedin.com/in/soodeh-moallemian/)
   - GIGA CRC Human Imaging, University of Liège, Belgium;
@@ -51,3 +53,10 @@ The age, sex, total intra-cranial volume, and scanner used, for each participant
 
 - [Martina F. Callaghan](https://sites.google.com/view/fil-physics/home), Wellcome Centre for Human Neuroimaging, Institute of Neurology, University College London, UK.
 
+---
+
+## Acknowledgments and Funding
+
+The authors would like to thank E. Anderson, M. Cappelletti, R. Chowdhury, J. Diedirchsen, T.H.B. Fitzgerald, and P. Smittenaar, who took part in data acquisition as part of multiple cognitive neuroimaging studies performed at the WCHN. 
+
+This work was supported by the Walloon Region in the framework of the PIT program PROTHER-WAL under grant agreement No. 7289 and ULiege Research Concerted Action (SLEEPDEM, grant 17/2109). Christophe Phillips are Research Directors at the [F.R.S.-FNRS](https://www.frs-fnrs.be/en/).
