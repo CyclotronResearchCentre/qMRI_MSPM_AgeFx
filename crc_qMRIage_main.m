@@ -30,6 +30,20 @@ if ~exist(pth_SPMtool_MSPM,'dir'),
     copyfile(pth.mspm,pth_SPMtool_MSPM)
 end
 
+% adding the AAL3v1_1mm atlas to SPM as recomemnded in the instructions 
+% (https://www.oxcns.org/aal3.html), if not done yet
+pth_SPM_atlas = fullfile(spm('dir'),'atlas');
+if ~exist(pth_SPM_atlas,'dir'),
+    % copy necessary AAL files into SPM's (new) atlas folder
+    mkdir(pth_SPM_atlas)
+    fn_2copy = {'AAL3v1.nii', 'AAL3v1.xml', 'AAL3v1.nii.txt', ...
+        'AAL3v1_1mm.nii', 'AAL3v1_1mm.xml', 'AAL3v1_1mm.nii.txt', ...
+        'ROI_MNI_V7.nii', 'ROI_MNI_V7_vol.txt'};
+    for ii=1:numel(fn_2copy)
+        copyfile( fullfile(pth.aal3,fn_2copy{ii}), pth_SPM_atlas);
+    end
+end
+
 % then initiliazing SPM
 spm('defaults','fmri'),
 spm_jobman('initcfg')
@@ -46,6 +60,12 @@ s03_out = crc_qMRIage_03_uSPM;
 
 %% 04. Perform multivarite SPM analysis
 s04_out = crc_qMRIage_04_mSPM;
+
+%% 05. Find significant clusters & count voxels/clusters
+s05_out = crc_qMRIage_05_signifClusVxl;
+
+%% 06.Extract ROI signals
+s06_out = crc_qMRIage_06_extractROIs;
 
 
 % % Get list of subjects

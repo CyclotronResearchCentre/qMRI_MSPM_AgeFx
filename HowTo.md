@@ -12,11 +12,13 @@ The whole code derives from code originally written by S. Moallemian, then updat
 
 We need to have 
 
-- "clean" versions of [SPM](https://github.com/spm/spm) and [MSPM](https://github.com/LREN-CHUV/MSPM), available from GitHub.
+- "clean" versions of [SPM](https://github.com/spm/spm) (use the latest release, i.e. SPM25) and [MSPM](https://github.com/LREN-CHUV/MSPM) (both available from GitHub);
 
-- a [copy of the data](https://openneuro.org/datasets/ds005851/versions/1.0.0/download#) directly from OpenNeuro
+- a [copy of the data](https://openneuro.org/datasets/ds005851/versions/1.0.0/download#) directly from OpenNeuro;
 
-The path to these 3 folders will be defined in the `crc_qMRIage_defaults` function.
+- for results extraction, a copy of the [`AAL3v1_1mm` atlas](https://www.oxcns.org/aal3.html), installed in the SPM folder as described in the instructions.
+
+The path to these 3-4 folders will be defined in the `crc_qMRIage_defaults` function.
 
 ---
 
@@ -35,10 +37,18 @@ The whole data processing is run from the main function `crc_qMRIage_main.m`, wh
   - `crc_gzip` & `crc_gunzip`, home made functions to zip & unzip a bunch of files, based on some filters (using `spm_select` "regular expression") and potentially recursively in a folder.
   
 - specific processing step function
-  - `crc_qMRIage_01_prepdata`, cleans up the data (removing the non-smoothed data folder) and unzipping the rest
-  - `crc_qMRIage_02_zscoring`, z-scoring all the data, this is performed within voxel across subjects, per tissue-weighted smoothed images (GM & WM tissue classes) and maps (4 for `MTsat`, `PD`, `R1`, `R2star`), i.e. one voxel from a single map smoothed for one tissue, across all the subjects.
-  - `crc_qMRIage_03_uSPM`, creating the univariate GLMs on the z-scored maps. This is performed per tissue-weighted smoothed images (2 tissue classes) and (4) maps. The SPM analysis are placed in 8 (2x4) different derivatives folders.
-  - `crc_qMRIage_04_mSPM`, performing the multivariate SPM, per tissue-weighted smoothed images (2 tissue classes), relying on the previously built univariate 4 SPMs. The 2 MSPM analysis are placed in different derivatives folders.
+  - to create the univariate/multivariate SPM's
+    - `crc_qMRIage_01_prepdata`, cleans up the data (removing the non-smoothed data folder) and unzipping the rest
+    - `crc_qMRIage_02_zscoring`, z-scoring all the data, this is performed within voxel across subjects, per tissue-weighted smoothed images (GM & WM tissue classes) and maps (4 for `MTsat`, `PD`, `R1`, `R2star`), i.e. one voxel from a single map smoothed for one tissue, across all the subjects.
+    - `crc_qMRIage_03_uSPM`, creating the univariate GLMs on the z-scored maps. This is performed per tissue-weighted smoothed images (2 tissue classes) and (4) maps. The SPM analysis are placed in 8 (2x4) different derivatives folders.
+    - `crc_qMRIage_04_mSPM`, performing the multivariate SPM, per tissue-weighted smoothed images (2 tissue classes), relying on the previously built univariate 4 SPMs. The 2 MSPM analysis are placed in different derivatives folders.
+  
+  - to extract some relevant information from the statistical maps
+    - `crc_qMRIage_05_signifClusVxl`, counting the number of of significant clusters and voxels
+    - `crc_qMRIage_06_extractROIs`, extracting and plotting the values in some ROIs
+  
+
+
 
 ### Limitations 
 
@@ -57,4 +67,4 @@ We will try to solve that but it is not straightforward and will take time, whic
 
 ## Future
 
-With the code here above, the univariate and multivariate SPMs are all calculated. It would convenient to upgrade the codes from steps 8 till 15 in order to generate all the maps, figures and tables used in the paper and its appendix.
+With the code here above, the univariate and multivariate SPMs are all calculated. It would convenient to upgrade the codes from steps 6 till 16 in order to generate all the maps, figures and tables used in the paper and its appendix.
