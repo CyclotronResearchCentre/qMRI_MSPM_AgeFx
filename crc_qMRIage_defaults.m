@@ -1,9 +1,15 @@
-function [pth,fn] = crc_qMRIage_defaults
+function [pth,fn] = crc_qMRIage_defaults(fl_split)
 % Simple function to define some default values for the processing of the
 % "MPM qMRI aging" dataset. One should at least update the basic pathes for
 % his own system and installation.
 % 
-% FORMAT [pth,fn] = crc_qMRIage_defaults
+% FORMAT [pth,fn] = crc_qMRIage_defaults(fl_split)
+% 
+% INPUT
+%   fl_split: flag indicating which split to use: 
+%               - 0, full dataset [def. if nothing indicated]
+%               - 1, first fold 'CV1_' prefix
+%               - 2, second fold 'CV2_' prefix
 % 
 % OUTPUT
 %   pth     : structure with a list of basic and secondary pathes
@@ -17,6 +23,7 @@ function [pth,fn] = crc_qMRIage_defaults
 %   .code   : folder with some codes/matlabbatch created during the
 %             processing
 %   fn      : structure with a list of filenames
+%   .pCV    : prfix for th cross-validation fold (empty or 'CV1/2_')
 %   .MBuSPM : matlabbatch with the empty 1S-ttest GLM definition
 %   .filt_TC   : tissue classes considered, {'GM','WM'}
 %   .filt_maps : maps considered , {'MTsat','PDmap','R1map','R2starmap'}
@@ -26,6 +33,19 @@ function [pth,fn] = crc_qMRIage_defaults
 % Written by 
 % - C. Phillips, Cyclotron Research Centre, University of Liege, Belgium
 % - S. Moallemian, Rutgers University, NJ, USA
+
+%% Check input
+% Assuming that the user passes a legitimate value (0, 1 or 2) or nothing
+if nargin==0
+    fl_split = 0;
+end
+switch fl_split
+    case 0, pCV = '';
+    case 1, pCV = 'CV1_';
+    case 2, pCV = 'CV2_';
+    otherwise
+        error('Wrong crossvalidation flag')
+end
 
 %% Pathes
 % Basic pathes
@@ -38,12 +58,13 @@ pth = struct( ...
 % Secondary pathes
 pth.deriv  = fullfile(pth.data,'derivatives');
 pth.dartel = fullfile(pth.deriv,'SPM8_dartel');
-pth.TWsmo  = fullfile(pth.deriv,'VBQ_TWsmooth');
-pth.zscore = fullfile(pth.deriv,'Zsc_maps');
+pth.TWsmo  = fullfile(pth.deriv,[pCV,'VBQ_TWsmooth']);
+pth.zscore = fullfile(pth.deriv,[pCV,'Zsc_maps']);
 pth.code   = fullfile(pth.data,'code');
 
 %% Filenames
 fn = struct( ...
+    'pCV', pCV, ...
     'MBuSPM', 'MBatch_1Sttest_empty.m', ...
     'filt_TC', {{'GM','WM'}}, ...
     'filt_maps', {{'MTsat','PDmap','R1map','R2starmap'}});
