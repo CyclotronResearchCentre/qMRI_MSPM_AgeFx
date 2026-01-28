@@ -26,6 +26,10 @@ function aa = crc_qMRIage_CrossVal
 % - C. Phillips, Cyclotron Research Centre, University of Liege, Belgium
 % - S. Moallemian, Rutgers University, NJ, USA
 
+% Initiliazing SPM
+spm('defaults','fmri'),
+spm_jobman('initcfg')
+
 %% 00. Setup original pathes, to full data set
 % Some checks & path handling
 [pth_o,~] = crc_qMRIage_defaults;
@@ -57,10 +61,12 @@ fn_Zmaps_CV1 = crc_qMRIage_02_zscoring(1);
 fn_Zmaps_CV2 = crc_qMRIage_02_zscoring(2);
 
 %% 03. Perform univariate SPM analysis
-% s03_out = crc_qMRIage_03_uSPM;
+s03_out_CV1 = crc_qMRIage_03_uSPM(1);
+s03_out_CV2 = crc_qMRIage_03_uSPM(2);
 
 %% 04. Perform multivarite SPM analysis
-% s04_out = crc_qMRIage_04_mSPM;
+s04_out_CV1 = crc_qMRIage_04_mSPM(1);
+s04_out_CV2 = crc_qMRIage_04_mSPM(2);
 
 
 end
