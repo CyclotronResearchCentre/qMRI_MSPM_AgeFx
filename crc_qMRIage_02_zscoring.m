@@ -1,4 +1,4 @@
-function out = crc_qMRIage_02_zscoring
+function fn_Zmaps = crc_qMRIage_02_zscoring(fl_split)
 % Function z-scoring all the data, this performed
 % - within voxel across subjects,
 % - per tissue-weighted smoothed images (2) and maps (4),
@@ -6,6 +6,18 @@ function out = crc_qMRIage_02_zscoring
 %  subjects.
 %
 % The z-transformed maps are placed in a separate 'derivatives' sub-folder.
+% 
+% FORMAT
+%   fn_Zmaps = crc_qMRIage_02_zscoring(fl_split)
+% 
+% INPUT
+%   fl_split : flag indicating which split to use: 
+%               - 0, full dataset [def. if nothing indicated]
+%               - 1, first fold 'CV1_' prefix
+%               - 2, second fold 'CV2_' prefix
+% 
+% OUTPUT
+%   fn_Zmaps : list of all z-scored files
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
@@ -14,7 +26,7 @@ function out = crc_qMRIage_02_zscoring
 % - S. Moallemian, Rutgers University, NJ, USA
 
 %% Get defaults
-[pth,fn] = crc_qMRIage_defaults;
+[pth,fn] = crc_qMRIage_defaults(fl_split);
 
 %% Deal with the data per tissue (2) and per  map (4)
 % Define filters for TC-weighted smoothing and maps
@@ -58,7 +70,6 @@ end
 
 %% Spit out results
 fn_Zmaps = spm_select('FPListRec', pth.zscore, '^z_.*\.nii$');
-out = fn_Zmaps;
 
 end
 
