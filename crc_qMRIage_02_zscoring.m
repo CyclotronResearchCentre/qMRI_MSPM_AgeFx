@@ -26,6 +26,7 @@ function fn_Zmaps = crc_qMRIage_02_zscoring(fl_split)
 % - S. Moallemian, Rutgers University, NJ, USA
 
 %% Get defaults
+if nargin==0, fl_split = 0; end
 [pth,fn] = crc_qMRIage_defaults(fl_split);
 
 %% Deal with the data per tissue (2) and per  map (4)
