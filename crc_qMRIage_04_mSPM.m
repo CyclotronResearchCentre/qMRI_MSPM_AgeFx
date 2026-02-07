@@ -1,4 +1,4 @@
-function out = crc_qMRIage_04_mSPM
+function out = crc_qMRIage_04_mSPM(fl_split)
 % Function to perform the multivariate SPM.
 % This is performed per tissue-weighted smoothed images (2), relying on the
 % previously built univariate SPMs (4).
@@ -24,7 +24,8 @@ function out = crc_qMRIage_04_mSPM
 % - S. Moallemian, Rutgers University, NJ, USA
 
 %% Get defaults
-[pth,fn] = crc_qMRIage_defaults;
+if nargin==0, fl_split = 0; end
+[pth,fn] = crc_qMRIage_defaults(fl_split);
 
 %% Pick up the uSPM's, and combine them into a MSPM
 % Check filters for TC-weighted smoothing and maps
@@ -33,9 +34,10 @@ N_maps = numel(fn.filt_maps);
 pth_mSPM = cell(N_TC,1);
 fn_MBmSPM = cell(N_TC,1);
 
+pth_wd = pwd; % neede to return after running MSPM
 for i_TC = 1:N_TC
     % Find the uSPM folders nad corresponding SPM.mat files
-    filt_TC_i = sprintf('^uSPM_%s_.*',fn.filt_TC{i_TC});
+    filt_TC_i = sprintf('^%suSPM_%s_.*',fn.pCV,fn.filt_TC{i_TC});
     dirs_i = spm_select('FPList',pth.deriv,'dir',filt_TC_i);
     fn_uSPM = cell(N_maps,1);
     for j_maps = 1:N_maps
@@ -43,7 +45,7 @@ for i_TC = 1:N_TC
     end
     % Prepare the MSPM folder
     pth_mSPM{i_TC} = fullfile(pth.deriv, ...
-        sprintf('mSPM_%s',fn.filt_TC{i_TC}) );
+        sprintf('%smSPM_%s',fn.pCV,fn.filt_TC{i_TC}) );
     if ~exist(pth_mSPM{i_TC},'dir'), mkdir(pth_mSPM{i_TC}); end
     % MSPM mode estimation:
     % - define fresh matlabbatch
@@ -56,10 +58,13 @@ for i_TC = 1:N_TC
         {fullfile(pth_mSPM{i_TC},'MSPM.mat')};
     % - save matlabbatch
     fn_mSPM = fullfile(pth.code, ...
-        sprintf('MBatch_mSPM_ModelEstimAnalysis_%s',fn.filt_TC{i_TC}));
+        sprintf('MBatch_%smSPM_ModelEstimAnalysis_%s', ...
+                fn.pCV, fn.filt_TC{i_TC}) );
     fn_MBmSPM{i_TC} = crc_save_matlabbatch(matlabbatch,fn_mSPM);
     % - run matlabbatch
     spm_jobman('run', matlabbatch);
+    % - return back to original folder
+    cd(pth_wd)
 end
 
 
