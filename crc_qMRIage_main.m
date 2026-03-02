@@ -61,7 +61,8 @@ s03_out = crc_qMRIage_03_uSPM;
 %% 04. Perform multivarite SPM analysis
 s04_out = crc_qMRIage_04_mSPM;
 
-%% 05. Find significant clusters & count voxels/clusters
+%% 05. Find significant clusters & count voxels/clusters, 
+% for uSPM/UuSPM/MSPM/ (univariate, union of univariate,  multivariate SPM)
 s05_out = crc_qMRIage_05_signifClusVxl;
 
 %% 06.Extract ROI signals
