@@ -41,3 +41,8 @@ flag_gunzip = struct(...
       'rec', false, ...      % act recursively
       'delOrig', true);  
 fn_out = crc_gunzip(pth.deriv, flag_gunzip);
+
+%% Checking CV1_GM_MTsat
+
+NVx = Nvx_per_clust_CV1{1,1}
+sum(NVx{1,1}==1)

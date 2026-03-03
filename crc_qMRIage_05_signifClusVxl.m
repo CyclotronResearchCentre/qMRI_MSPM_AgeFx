@@ -42,8 +42,7 @@ if nargin==0, fl_split = 0; end
 p_thresh = [.05 .0125]; % regular FWER plus the one divided by 4
 % p_thresh = .05 ;
 
-%% Deal with the 2x4 uSPM's, one by one, then mSPM
-% Check filters for TC-weighted smoothing and maps
+%% Deal with the 2x4 uSPM's, one by one, 
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
 pth_SPM_bin = cell(N_TC,1);
@@ -66,7 +65,24 @@ for i_zTWS = 1:N_TC
     end
 end
 
-% Collect output
+%% Deal with the union of the binarized SPM's
+% Collect all the files across maps, then sum them up
+n_thresh = numel(fn_bin{1,1});
+for i_thr = 1:n_thresh
+    for i_zTWS = 1:N_TC
+        fn_tmp = '';
+        for j_maps = 1: N_maps
+            fn_tmp = char(fn_tmp,fn_bin{i_zTWS,j_maps}{i_thr});
+        end
+        fn_tmp(1,:) = []; % remove 1st empty line
+        
+        % Unite the collected binary maps
+        % then count clusters and voxel
+        
+    end
+end
+
+%% Collect output
 fn_out = fn_bin;
 
 
