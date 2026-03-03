@@ -41,8 +41,9 @@ if nargin==0, fl_split = 0; end
 % Define thresholds for SPM's
 p_thresh = [.05 .0125]; % regular FWER plus the one divided by 4
 % p_thresh = .05 ;
+n_thresh = numel(p_thresh);
 
-%% Deal with the 2x4 uSPM's, one by one, 
+%% Deal with the 2x4 uSPM's, one by one,
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
 pth_SPM_bin = cell(N_TC,1);
@@ -67,19 +68,37 @@ end
 
 %% Deal with the union of the binarized SPM's
 % Collect all the files across maps, then sum them up
-n_thresh = numel(fn_bin{1,1});
-for i_thr = 1:n_thresh
-    for i_zTWS = 1:N_TC
+
+for i_zTWS = 1:N_TC % Check GM and WM
+    fn_bin_Uu = cell(2,1);
+    Nvx_p_cl_Uu = cell(2,1);
+    for i_thr = 1:n_thresh
+        % Collect the various binarized maps
         fn_tmp = '';
         for j_maps = 1: N_maps
             fn_tmp = char(fn_tmp,fn_bin{i_zTWS,j_maps}{i_thr});
         end
         fn_tmp(1,:) = []; % remove 1st empty line
+        % Generate Union-of-bin-uSPM filename
+        fn_bin_Uu{i_thr} = spm_file(fn_tmp(1,:), 'filename', ...
+            sprintf('UuSPM_%s_p-%04d.nii', ...
+            fn.filt_TC{i_zTWS},p_thresh(i_thr)*10000));
         
         % Unite the collected binary maps
-        % then count clusters and voxel
+        fl_imcalc = struct( ...
+            'dmtx', 1, ...
+            'mask', 0, ...
+            'interp', 0, ...
+            'dtype', 2, ...
+            'descrip', 'Union of binarized uSPM''s');
+        spm_imcalc(fn_tmp, fn_bin_Uu{i_thr}, 'any(X)', fl_imcalc);
         
+        % Count clusters and voxel
+        Nvx_p_cl_Uu{i_thr} = count_voxels_per_clusters(fn_bin_Uu{i_thr});
     end
+    % append these to the cell array of results
+    fn_bin{i_zTWS, N_maps+1}        = fn_bin_Uu;
+    Nvx_per_clust{i_zTWS, N_maps+1} = Nvx_p_cl_Uu;
 end
 
 %% Collect output
@@ -155,12 +174,23 @@ function Nvx_per_cluster = count_voxels_per_clusters(F)
 % FORMAT Nvx_per_cluster = count_voxels_per_clusters(F)
 %
 % INPUT
-%   F : trhesholded map
+%   F : thresholded map, or filename to binarized map
 %
 % OUTPUT
 %   Nvx_per_cluster : number of voxels per cluster
 %
 
+% IF filename is passed, check the file exist, then load it into memory
+if ischar(F)
+    fn = F;
+    if exist(fn,'file')
+        F = spm_read_vols(spm_vol(fn));
+    else
+        error('File does not seem to exist: %s\n', fn);
+    end
+end
+
+% Find clusters
 [clusters,n_clusters] = spm_bwlabel(F,18);
 % check the number of voxels within each cluster
 Nvx_per_cluster = zeros(n_clusters,1);
