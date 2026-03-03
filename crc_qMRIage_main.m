@@ -74,22 +74,33 @@ N_maps = numel(fn.filt_maps);
 % Per tissue class (cell) and map+union (1st dim), 
 % extract #cluster, min-max #vx/cl, #voxels (2nd dim)
 % for both thresholds (3rd dim)
-
-VxCl_count = cell(N_TC,1)
+VxCl_count = cell(N_TC,1);
 for i_zTWS = 1:N_TC
     VxCl_count_TC = zeros(N_maps+1,4,N_thr);
-    for j_maps = 1: N_maps+1 % to account for union
+    for j_maps = 1: N_maps+2 % to account for union of sPMs & mSPM
         for i_thr = 1:N_thr
             tmp_ct = Nvx_per_clust{i_zTWS,j_maps}{i_thr};
             VxCl_count_TC(j_maps, : , i_thr) = ...
-                [numel(tmp_ct), min(tmp_ct), max(tmp_ct), sum(tmp_ct)]
+                [numel(tmp_ct), min(tmp_ct), max(tmp_ct), sum(tmp_ct)];
         end
     end
     VxCl_count{i_zTWS} = VxCl_count_TC;
 end
 
+% Check Cohen's Kappa, for UuSPM and mSPM, for GM/WM and 2 thresholds
+% using the tissue mask
+CK = zeros(N_TC,N_thr);
+for i_zTWS = 1:N_TC
+    for i_thr = 1:N_thr
+        fn_mask_i = spm_select('FPList', pth.deriv, ...
+            sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', fn.filt_TC{i_zTWS}) );
+        fn_cmp = char(fn_out{i_zTWS,6}{i_thr}, fn_out{i_zTWS,5}{i_thr});
+        CK(i_zTWS,i_thr) = crc_CohenKappaImg(fn_cmp,fn_mask_i);
+    end
+end
+
 %% 06.Extract ROI signals
-s06_out = crc_qMRIage_06_extractROIs;
+% s06_out = crc_qMRIage_06_extractROIs;
 
 
 % % Get list of subjects

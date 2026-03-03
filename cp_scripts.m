@@ -46,3 +46,9 @@ fn_out = crc_gunzip(pth.deriv, flag_gunzip);
 
 NVx = Nvx_per_clust_CV1{1,1}
 sum(NVx{1,1}==1)
+
+%% Looking at Cohen's Kappa
+fn_bin_test = char( fn_out{1,1}{1}, fn_out{1,5}{1})
+CK = crc_CohenKappaImg(fn_bin_test)
+% CK = crc_CohenKappaImg(fn_bin_test,fn_msk)
+
