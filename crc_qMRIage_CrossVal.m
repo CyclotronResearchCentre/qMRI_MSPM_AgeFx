@@ -57,7 +57,7 @@ for ii=1:Nsubj/2
 end
 
 %% 02. Z-scoring
-fn_Zmaps_CV1 = crc_qMRIage_02_zscoring(1);
+fn_Zmaps_CV1 = crc_qMRIage_02_zscoring(1); %#ok<*NASGU>
 fn_Zmaps_CV2 = crc_qMRIage_02_zscoring(2);
 
 %% 03. Perform univariate SPM analysis
@@ -67,6 +67,11 @@ s03_out_CV2 = crc_qMRIage_03_uSPM(2);
 %% 04. Perform multivarite SPM analysis
 s04_out_CV1 = crc_qMRIage_04_mSPM(1);
 s04_out_CV2 = crc_qMRIage_04_mSPM(2);
+
+%% 05. Find significant clusters & count voxels/clusters, 
+% for uSPM/UuSPM/MSPM/ (univariate, union of univariate,  multivariate SPM)
+[fn_out_CV1, Nvx_per_clust_CV1] = crc_qMRIage_05_signifClusVxl(1);
+[fn_out_CV2, Nvx_per_clust_CV2] = crc_qMRIage_05_signifClusVxl(2);
 
 
 end
