@@ -65,6 +65,29 @@ s04_out = crc_qMRIage_04_mSPM;
 % for uSPM/UuSPM/MSPM/ (univariate, union of univariate,  multivariate SPM)
 [fn_out, Nvx_per_clust] = crc_qMRIage_05_signifClusVxl;
 
+% Check results
+% sz_Nvx = size(Nvx_per_clust)
+N_thr  = numel(Nvx_per_clust{1,1});
+N_TC   = numel(fn.filt_TC);
+N_maps = numel(fn.filt_maps);
+
+% Per tissue class (cell) and map+union (1st dim), 
+% extract #cluster, min-max #vx/cl, #voxels (2nd dim)
+% for both thresholds (3rd dim)
+
+VxCl_count = cell(N_TC,1)
+for i_zTWS = 1:N_TC
+    VxCl_count_TC = zeros(N_maps+1,4,N_thr);
+    for j_maps = 1: N_maps+1 % to account for union
+        for i_thr = 1:N_thr
+            tmp_ct = Nvx_per_clust{i_zTWS,j_maps}{i_thr};
+            VxCl_count_TC(j_maps, : , i_thr) = ...
+                [numel(tmp_ct), min(tmp_ct), max(tmp_ct), sum(tmp_ct)]
+        end
+    end
+    VxCl_count{i_zTWS} = VxCl_count_TC;
+end
+
 %% 06.Extract ROI signals
 s06_out = crc_qMRIage_06_extractROIs;
 
