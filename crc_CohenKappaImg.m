@@ -2,7 +2,22 @@ function CK = crc_CohenKappaImg(fn_bin,fn_msk)
 % Function to calculate Cohen's Kappa between 2 binarized maps. A mask can
 % be passed along to limite the space to the voxels in the mask.
 % 
-% Ref: https://en.wikipedia.org/wiki/Cohen%27s_kappa
+% Interpretation of Cohen's Kappa value, by Landis & Koch
+%   Range       Meaning
+%   0.00-0.20   Poor 
+%   0.21-0.40   Fair 
+%   0.41-0.60   Moderate 
+%   0.61-0.80   Good 
+%   0.81-1.00   Very good
+% 
+% Ref: 
+% - https://en.wikipedia.org/wiki/Cohen%27s_kappa
+% - Cohen J. A coefficient of agreement for nominal scales. Educ Psychol 
+%   Measur 1960];20:37–46.
+%   https://doi.org/10.1177/001316446002000104
+% - Landis JR, Koch GG. The measurement of observer agreement for 
+%   categorical data. Biometrics 1977];33:159–74. 
+%   https://doi.org/10.2307/2529310 & https://www.jstor.org/stable/2529310
 %_______________________________________________________________________
 % Copyright (C) 2025 Cyclotron Research Centre
 
