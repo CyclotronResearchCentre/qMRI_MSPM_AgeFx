@@ -42,13 +42,15 @@ if nargin==0, fl_split = 0; end
 p_thresh = [.05 .0125]; % regular FWER plus the one divided by 4
 % p_thresh = .05 ;
 n_thresh = numel(p_thresh);
-
-%% Deal with the 2x4 uSPM's, one by one,
 N_TC  = numel(fn.filt_TC);
 N_maps = numel(fn.filt_maps);
+
+% Prepare output cell arrays
 pth_SPM_bin = cell(N_TC,1);
 Nvx_per_clust = cell(N_TC,N_maps);
 fn_bin = cell(N_TC,N_maps);
+
+%% Deal with the 2x4 uSPM's, one by one,
 
 for i_zTWS = 1:N_TC
     % Loop over tissue, i.e. GM-WM, and
@@ -101,6 +103,17 @@ for i_zTWS = 1:N_TC % Check GM and WM
     Nvx_per_clust{i_zTWS, N_maps+1} = Nvx_p_cl_Uu;
 end
 
+%% Deal with the 2 mSPM's, one by one,
+for i_zTWS = 1:N_TC
+    % Loop over tissue, i.e. GM-WM, and find the mSPM folders
+    pth_mSPM_i = fullfile(pth.deriv, ...
+        sprintf('%smSPM_%s', fn.pCV,fn.filt_TC{i_zTWS}), ...
+        'L_01_c01');
+    [Nvx_per_clust{i_zTWS,N_maps+2},fn_bin{i_zTWS,N_maps+2}] = ...
+        sm_cluster_masks(pth_mSPM_i, p_thresh, pth_SPM_bin{i_zTWS}, 1);
+end
+
+
 %% Collect output
 fn_out = fn_bin;
 
@@ -110,7 +123,7 @@ end
 %% SUBFUNCTIONS
 
 % Create binarized SPM's
-function [Nvx_per_cluster,fn_binarized] = sm_cluster_masks(SPM_path, p_thresh, pth_dest)
+function [Nvx_per_cluster,fn_binarized] = sm_cluster_masks(SPM_path, p_thresh, pth_dest, fl_mspm)
 
 % Sub-function to create a binary map with all the cluster, as well as
 % estimate the cluster sizes.
@@ -121,6 +134,7 @@ function [Nvx_per_cluster,fn_binarized] = sm_cluster_masks(SPM_path, p_thresh, p
 %   SPM_path : path of folder with SPM.mat
 %   p_thresh : FWER threshold to use (can be a vector)
 %   pth_dest : path of folder where to write binarized image(s)
+%   fl_mspm  : flag indicating the use of mSPM results, instead of uSPM [def]
 %
 % OUTPUT
 %   Nvx_per_cluster : (cell array of) #voxels/clusters at fixed thresholds
@@ -129,8 +143,14 @@ function [Nvx_per_cluster,fn_binarized] = sm_cluster_masks(SPM_path, p_thresh, p
 %
 % Derived from SM's "sm_cluster_masks.m" function
 
+if nargin<4, fl_mspm = false; end
+
 % Model name from the folder name
-fn_model = spm_file(SPM_path,'basename');
+if ~fl_mspm % uSPM
+    fn_model = spm_file(SPM_path,'basename');
+else % mSPM
+    fn_model = spm_file(spm_file(SPM_path,'path'),'basename');
+end
 
 % Load SPM.mat file
 load(fullfile(SPM_path,'SPM.mat'))
@@ -139,7 +159,13 @@ load(fullfile(SPM_path,'SPM.mat'))
 con_idx = find(strcmp({SPM.xCon.STAT},'F'));
 
 % Load F-map
-V = spm_vol(fullfile(SPM_path,SPM.xCon(con_idx).Vspm.fname));
+if ~fl_mspm % uSPM
+    fn_Fmap = fullfile(SPM_path,SPM.xCon(con_idx).Vspm.fname);
+else %mSPM
+    fn_Fmap = SPM.xCon(con_idx).Vspm.fname;
+end
+
+V = spm_vol(fn_Fmap);
 Forig = spm_read_vols(V);
 
 Nvx_per_cluster = cell(numel(p_thresh),1);
@@ -160,7 +186,8 @@ for i_thresh = 1:numel(p_thresh)
         sprintf('%s_p-%04d.nii',fn_model,p_thresh(i_thresh)*10000));
     % Save all clusters as binary NIfTI files
     Vbin = V;
-    Vbin.fname = fn_binarized{i_thresh}; Vbin.dt(1) = 2;
+    Vbin.fname = fn_binarized{i_thresh}; 
+    Vbin.dt(1) = 2; % save as uint8
     spm_write_vol(Vbin,F);
 end
 
