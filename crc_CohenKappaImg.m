@@ -2,6 +2,16 @@ function CK = crc_CohenKappaImg(fn_bin,fn_msk)
 % Function to calculate Cohen's Kappa between 2 binarized maps. A mask can
 % be passed along to limite the space to the voxels in the mask.
 % 
+% FORMAT CK = crc_CohenKappaImg(fn_bin,fn_msk)
+% 
+% INPUT
+%   fn_bin : char array of 2 binary images filenames
+%   fn_msk : char of mask image
+% 
+% OUTPUT
+%   CK     : Cohen's Kappa of 2 binary images, 
+%            considering only the mask voxels if provided
+% 
 % Interpretation of Cohen's Kappa value, by Landis & Koch
 %   Range       Meaning
 %   0.00-0.20   Poor 
@@ -51,7 +61,6 @@ FP = sum(and(vVal_bin(:,1),~vVal_bin(:,2)));
 FN = sum(and(~vVal_bin(:,1),vVal_bin(:,2)));
 
 % Calculate Cohen's Kappa
-
 CK = 2 * ( TP*TN - FP*FN) / ( (TP+FP)*(FP+TN) + (TP+FN)*(FN+TN) );
 
 end
