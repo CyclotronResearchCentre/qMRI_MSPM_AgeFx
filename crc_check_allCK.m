@@ -1,7 +1,19 @@
 function CKall = crc_check_allCK
 % Function to to claculate a list of relevant Cohen's Kappa (CK) values.
 %  These consits in the following comparisons
-% 
+%   - UuSPM vs mSPM for (-> row 1)
+%       * all data
+%       * within CV1 and CV2
+%   - within UuSPM for (-> row 2)
+%       * all data vs CV1/2
+%       * CV1/CV2
+%   - within mSPM for (-> row 3)
+%       * all data vs CV1/2
+%       * CV1/CV2
+% i.e. 9 tests placed in 3 rows 
+% Then this is repeated for
+%   - the tissue classed (GM & WM) -> row of cell array
+%   - the thresholds used (.05 & .0125) -> columns of cell array
 % 
 % FORMAT
 %   CKall = crc_check_allCK
