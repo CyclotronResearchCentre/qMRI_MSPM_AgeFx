@@ -24,10 +24,14 @@ function CKall = crc_check_allCK
 %_______________________________________________________________________
 % Copyright (C) 2026 Cyclotron Research Centre
 
+% Written by
+% - C. Phillips, Cyclotron Research Centre, University of Liege, Belgium
+% - S. Moallemian, Rutgers University, NJ, USA
+
 % Get defaults
 [pth,fn] = crc_qMRIage_defaults; %#ok<*ASGLU>
 
-% Useful comparisons
+% Deal with useful comparisons
 %------------------
 l_thr = {'p-0500','p-0125'};
 CKall = cell(numel(fn.filt_TC),numel(l_thr));
@@ -93,6 +97,21 @@ for i_TC = 1:numel(fn.filt_TC)
     end
 end
 
-% Written by
-% - C. Phillips, Cyclotron Research Centre, University of Liege, Belgium
-% - S. Moallemian, Rutgers University, NJ, USA
+%% Display results
+% First TC, hen thresholds
+for i_TC = 1:numel(fn.filt_TC)
+    fprintf('\n')
+    fprintf('Cohen''s Kappa values for %s tissue\n',fn.filt_TC{i_TC});
+    for i_thr = 1:numel(l_thr)
+        fprintf('\tCare for threshold at %s\n',l_thr{i_thr});
+        CK_TC_thr = CKall{i_TC,i_thr};
+        fprintf('\t\t- compare UuSPM vs mSPM, with all, CV1, and CV2 data:\n');
+        fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(1,:))
+        fprintf('\t\t- compare data set for UuSPM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
+        fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(2,:))
+        fprintf('\t\t- compare data set for mSPM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
+        fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(3,:))
+    end
+end
+end
+
