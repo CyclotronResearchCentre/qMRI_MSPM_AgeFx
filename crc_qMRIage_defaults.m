@@ -23,7 +23,7 @@ function [pth,fn] = crc_qMRIage_defaults(fl_split)
 %   .code   : folder with some codes/matlabbatch created during the
 %             processing
 %   fn      : structure with a list of filenames
-%   .pCV    : prfix for th cross-validation fold (empty or 'CV1/2_')
+%   .pCV    : prefix for th cross-validation fold ('',  'CV1_' or 'CV2_')
 %   .MBuSPM : matlabbatch with the empty 1S-ttest GLM definition
 %   .filt_TC   : tissue classes considered, {'GM','WM'}
 %   .filt_maps : maps considered , {'MTsat','PDmap','R1map','R2starmap'}
@@ -54,6 +54,7 @@ pth = struct( ...
     'mspm', 'D:\6a_GitHub_SPM\MSPM', ...
     'aal3', 'D:\6a_GitHub_SPM\AAL3', ...
     'data', 'D:\ccc_DATA\ds005851');
+%     'data', 'C:\Users\christophe\OneDrive - Universite de Liege\2_Data\ds005851');
 
 % Secondary pathes
 pth.deriv  = fullfile(pth.data,'derivatives');

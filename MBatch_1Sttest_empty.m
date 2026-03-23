@@ -1,5 +1,5 @@
 %-----------------------------------------------------------------------
-% Job saved on 25-Jul-2025 17:35:39 by cfg_util (rev $Rev: 8183 $)
+% Job saved on 02-Mar-2026 21:29:53 by cfg_util (rev $Rev: 8183 $)
 % spm SPM - SPM25 (00.00)
 % cfg_basicio BasicIO - Unknown
 %-----------------------------------------------------------------------
@@ -34,4 +34,8 @@ matlabbatch{2}.spm.stats.fmri_est.method.Classical = 1;
 matlabbatch{3}.spm.stats.review.spmmat(1) = cfg_dep('Factorial design specification: SPM.mat File', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','spmmat'));
 matlabbatch{3}.spm.stats.review.display.matrix = 1;
 matlabbatch{3}.spm.stats.review.print = 'pdf';
-
+matlabbatch{4}.spm.stats.con.spmmat(1) = cfg_dep('Model estimation: SPM.mat File', substruct('.','val', '{}',{2}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','spmmat'));
+matlabbatch{4}.spm.stats.con.consess{1}.fcon.name = 'AgeReg';
+matlabbatch{4}.spm.stats.con.consess{1}.fcon.weights = [0 1 0 0 0];
+matlabbatch{4}.spm.stats.con.consess{1}.fcon.sessrep = 'none';
+matlabbatch{4}.spm.stats.con.delete = 0;

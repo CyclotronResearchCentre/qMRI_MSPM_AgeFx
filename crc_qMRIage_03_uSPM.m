@@ -84,22 +84,22 @@ N_maps = numel(fn.filt_maps);
 pth_uSPM = cell(N_TC,N_maps);
 fn_MBuSPM = cell(N_TC,N_maps);
 
-for i_TWS = 1:N_TC
+for i_zTWS = 1:N_TC
     % Pick tissue mask
     fn_mask_i = spm_select('FPListRec', pth.deriv, ...
-        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}) );
+        sprintf('^atlas-*%s.*_mask\\.nii(\\.gz)?$', fn.filt_TC{i_zTWS}) );
     for j_maps = 1: N_maps
         % Pick list of maps from all subjects
         fn_img_ij = cellstr( spm_select('FPListRec', pth.zscore, ...
-            sprintf('^z_sub.*%ssmo_%s\\.nii(\\.gz)?$', fn.filt_TC{i_TWS}, ...
+            sprintf('^z_sub.*%ssmo_%s\\.nii(\\.gz)?$', fn.filt_TC{i_zTWS}, ...
             fn.filt_maps{j_maps}) ));
         N_img_j = size(fn_img_ij,1);
         % Define the SPM folder & create it
         fn_uSPM_ij = sprintf('%suSPM_%s_%s', ...
-            fn.pCV, fn.filt_TC{i_TWS}, fn.filt_maps{j_maps});
+            fn.pCV, fn.filt_TC{i_zTWS}, fn.filt_maps{j_maps});
         pth_uSPM_ij = fullfile(pth.deriv, fn_uSPM_ij);
         if ~exist(pth_uSPM_ij,'dir'), mkdir(pth_uSPM_ij); end;
-        pth_uSPM{i_TWS,j_maps} = pth_uSPM_ij;
+        pth_uSPM{i_zTWS,j_maps} = pth_uSPM_ij;
         
         % Fill up the matlabbatch
         matlabbatch = MBatch_orig;
@@ -121,7 +121,7 @@ for i_TWS = 1:N_TC
         
         % Saving it, in code folder, just in case
         fn_uSPM = fullfile(pth.code,['MBatch_',fn_uSPM_ij]);
-        fn_MBuSPM{i_TWS,j_maps} = crc_save_matlabbatch(matlabbatch,fn_uSPM);
+        fn_MBuSPM{i_zTWS,j_maps} = crc_save_matlabbatch(matlabbatch,fn_uSPM);
         
         % Executing the matlabbatch
         spm_jobman('run', matlabbatch);
