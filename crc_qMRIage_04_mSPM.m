@@ -34,7 +34,7 @@ N_maps = numel(fn.filt_maps);
 pth_mSPM = cell(N_TC,1);
 fn_MBmSPM = cell(N_TC,1);
 
-pth_wd = pwd; % neede to return after running MSPM
+pth_wd = pwd; % needed to return after running MSPM
 for i_TC = 1:N_TC
     % Find the uSPM folders nad corresponding SPM.mat files
     filt_TC_i = sprintf('^%suSPM_%s_.*',fn.pCV,fn.filt_TC{i_TC});

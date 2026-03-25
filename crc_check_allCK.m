@@ -105,11 +105,11 @@ for i_TC = 1:numel(fn.filt_TC)
     for i_thr = 1:numel(l_thr)
         fprintf('\tCare for threshold at %s\n',l_thr{i_thr});
         CK_TC_thr = CKall{i_TC,i_thr};
-        fprintf('\t\t- compare UuSPM vs mSPM, with all, CV1, and CV2 data:\n');
+        fprintf('\t\t- compare UuGLM vs mGLM, with all, CV1, and CV2 data:\n');
         fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(1,:))
-        fprintf('\t\t- compare data set for UuSPM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
+        fprintf('\t\t- compare data set for UuGLM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
         fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(2,:))
-        fprintf('\t\t- compare data set for mSPM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
+        fprintf('\t\t- compare data set for mGLM with all-vs-CV1, all-vs-CV2, and CV1-vs-CV2:\n');
         fprintf('\t\t\t %1.4f\t %1.4f\t %1.4f\n',CK_TC_thr(3,:))
     end
 end
